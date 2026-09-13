@@ -846,15 +846,22 @@ sudo ./aws/install
 
 # Verify installation
 aws --version
-
-# Configure AWS credentials (for ECR access)
-aws configure
-# Enter:
-# AWS Access Key ID: [from IAM user]
-# AWS Secret Access Key: [from IAM user]
-# Default region: [us-east-1]
-# Default output format: json
 ```
+
+### 7.8 Configure AWS credentials (for ECR access)
+aws configure
+Using the *AWS root user account directly on an EC2 instance* or inside applications is heavily discouraged due to major security risks. The correct, secure approach is to create a dedicated *IAM Role* in your AWS Console and attach it to the EC2 instance so it can fetch temporary, secure credentials automatically.
+
+Step 1: Create the IAM Role
+1. Log into your **AWS Management Console** using your root credentials.
+2. In the top search bar, search for **IAM** and open the IAM Dashboard.
+3. In the left navigation pane, click on **Roles**, then click the **Create role** button.
+4. Select **AWS service** as the trusted entity type.
+5. In the *Service or use case* dropdown, select **EC2** and click **Next**.
+6. On the permissions page, search for **`AmazonEC2ContainerRegistryPowerUser`**. Check the box next to it. (This policy permits the role to pull and push images to ECR). Click **Next**.
+7. Provide a **Role name** (e.g., `EC2-ECR-Access-Role`).
+8. Review the configuration and click **Create role**.
+
 
 ### 7.6 Test Docker with Simple Container
 
