@@ -888,7 +888,7 @@ aws ecr get-login-password --region <YOUR-AWS-REGION> | docker login --username 
 ```
 
 > **Note:** Replace `<YOUR-AWS-REGION>` with your actual deployment region (e.g., `us-east-1`) and `<YOUR-AWS-ACCOUNT-ID>` with your 12-digit AWS account number.
-```
+
 
 ---
 
