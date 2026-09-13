@@ -835,6 +835,16 @@ sudo systemctl start docker
 sudo systemctl status docker
 ```
 
+**Test Docker with a Simple Container**
+
+```bash
+# Run a test container
+docker run hello-world
+
+# Should see confirmation message
+# If successful, Docker is working correctly
+```
+
 ### 7.5 Install AWS CLI
 To use Amazon Elastic Container Registry (ECR) from an Amazon EC2 instance, you must install the AWS CLI, attach an IAM role with ECR permissions to the instance, and then authenticate your Docker client.
 
@@ -862,15 +872,22 @@ Step 1: Create the IAM Role
 7. Provide a **Role name** (e.g., `EC2-ECR-Access-Role`).
 8. Review the configuration and click **Create role**.
 
+Step 2: Attach the Role to your EC2 Instance
+1. Open the **EC2 Dashboard** in the AWS Console.
+2. Click on **Instances (running)** and find your running instance (e.g., `ip-172-00-00-00`).
+3. Select the instance by checking the box next to it.
+4. Click the **Actions** dropdown menu at the top right, navigate to **Security**, and select **Modify IAM role**.
+5. Select the **`EC2-ECR-Access-Role`** you just created from the dropdown menu.
+6. Click **Update IAM role**.
 
-### 7.6 Test Docker with Simple Container
+Step 3: Test ECR Authentication on your Instance
+Once the role is attached, the AWS CLI tool you just installed will seamlessly discover the credentials in the background. You **do not** need to run `aws configure` or input any access keys.
 
 ```bash
-# Run a test container
-docker run hello-world
+aws ecr get-login-password --region <YOUR-AWS-REGION> | docker login --username AWS --password-stdin <YOUR-AWS-ACCOUNT-ID>.dkr.ecr.<YOUR-AWS-REGION>.amazonaws.com
+```
 
-# Should see confirmation message
-# If successful, Docker is working correctly
+> **Note:** Replace `<YOUR-AWS-REGION>` with your actual deployment region (e.g., `us-east-1`) and `<YOUR-AWS-ACCOUNT-ID>` with your 12-digit AWS account number.
 ```
 
 ---
