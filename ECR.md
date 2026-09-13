@@ -836,6 +836,7 @@ sudo systemctl status docker
 ```
 
 ### 7.5 Install AWS CLI
+To use Amazon Elastic Container Registry (ECR) from an Amazon EC2 instance, you must install the AWS CLI, attach an IAM role with ECR permissions to the instance, and then authenticate your Docker client.
 
 ```bash
 # Install AWS CLI v2
